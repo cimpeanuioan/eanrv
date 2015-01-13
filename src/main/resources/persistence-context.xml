@@ -1,0 +1,59 @@
+<beans
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd"
+    >
+
+  <bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+        p:location="classpath:persistence.properties"/>
+
+  <context:annotation-config/>
+  <context:component-scan
+      base-package="ro.xdr.eanrv"/>
+  <tx:annotation-driven/>
+
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+        p:driverClassName="${db.driver}"
+        p:url="${db.url}" p:username="${db.username}"
+        p:password="${db.password}"/>
+  <bean id="jpaVendor" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+    <property name="showSql" value="false"/>
+    <property name="generateDdl" value="true"/>
+    <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect"/>
+  </bean>
+
+  <bean id="entityManagerFactory"
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <property name="jpaVendorAdapter" ref="jpaVendor"/>
+    <property name="dataSource" ref="dataSource"/>
+    <property name="packagesToScan"
+              value="ro.xdr.eanrv.model"/>
+    <property name="jpaProperties">
+      <props>
+        <prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
+        <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+        <prop key="hibernate.connection.autocommit">true</prop>
+        <prop key="hibernate.show_sql">false</prop>
+        <prop key="hibernate.format_sql">true</prop>
+        <prop key="hibernate.use_sql_comments">false</prop>
+        <prop key="hibernate.jdbc.batch_size">100</prop>
+        <prop key="hibernate.cache.use_second_level_cache">false</prop>
+      </props>
+    </property>
+  </bean>
+
+  <bean id="transactionManager"
+        class="org.springframework.orm.jpa.JpaTransactionManager">
+    <property name="entityManagerFactory" ref="entityManagerFactory"/>
+  </bean>
+</beans>
