@@ -22,7 +22,7 @@ public class HotelController {
     public HotelController() {
     }
 
-    // HOST_IP/api/hotelid/save?hotelId=12512&hotelName=ceva&processed=true
+    // HOST_IP/api/hotelid/save?hotelId=12512&hotelName=ceva&processed=true...
     @ResponseBody
     @RequestMapping(method = RequestMethod.GET, name = "/save")
     public String getHotelById(@RequestParam(value = "hotelId") Integer hotelId,
