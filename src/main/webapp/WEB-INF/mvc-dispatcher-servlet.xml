@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns="http://www.springframework.org/schema/beans"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <context:annotation-config/>
+
+    <!-- Load properties files -->
+    <context:property-placeholder location="classpath*:*.properties"/>
+
+    <!-- Register String and Json mapping handlers -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <util:list id="beanList">
+                <ref bean="stringHttpMessageConverter"/>
+                <ref bean="jsonHttpMessageConverter"/>
+            </util:list>
+        </property>
+    </bean>
+
+    <bean id="stringHttpMessageConverter"
+          class="org.springframework.http.converter.StringHttpMessageConverter"/>
+
+    <bean id="jsonHttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+
+    <sec:global-method-security
+            secured-annotations="enabled" jsr250-annotations="enabled"
+            pre-post-annotations="enabled" access-decision-manager-ref="accessDecisionManager">
+    </sec:global-method-security>
+
+    <!-- Operation Authorization -->
+    <bean id="accessDecisionManager"
+                class="org.springframework.security.access.vote.AffirmativeBased">
+        <constructor-arg name="decisionVoters">
+            <list>
+                <ref bean="roleVoter"/>
+                <ref bean="authenticatedVoter"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="roleVoter"
+                class="org.springframework.security.access.vote.RoleVoter">
+        <property name="rolePrefix" value=""/>
+    </bean>
+
+    <bean id="authenticatedVoter"
+                class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+
+    <!-- RESTful Exception Handleing -->
+    <!--<bean id="jacksonHttpMessageConverter"
+          class="ro.xdr.backend.core.error.DefaultJacksonHttpMessageConverter">
+        <property name="prettyPrint" value="false" />
+    </bean>
+
+    <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver" />
+
+    <bean id="restExceptionResolver"
+          class="ro.xdr.backend.core.error.RestExceptionHandler">
+        <property name="order" value="0" />
+        <property name="messageConverters">
+            <list>
+                <ref bean="jacksonHttpMessageConverter" />
+            </list>
+        </property>
+        <property name="errorResolver">
+            <bean
+                    class="ro.xdr.backend.core.error.DefaultRestErrorResolver">
+                <property name="localeResolver" ref="localeResolver" />
+                <property name="defaultMoreInfoUrl" value="backendTeam@xdr.com" />
+                <property name="exceptionMappingDefinitions">
+                    <map>
+                        &lt;!&ndash; 409 Conflict &ndash;&gt;
+                        <entry key="java.lang.IllegalArgumentException" value="409, 401, _uexmsg, _exmsg" />
+
+                        &lt;!&ndash; 400 Bad request &ndash;&gt;
+                        <entry key="ro.xdr.backend.core.error.UnknownResourceException"
+                                value="406, 416, _uexmsg, _dexmsg" />
+
+                        &lt;!&ndash; 403 Access is denied &ndash;&gt;
+                        <entry key="org.springframework.security.access.AccessDeniedException" value="403, 403, _uexmsg, _dexmsg"/>
+
+                        &lt;!&ndash; 404 Page not found &ndash;&gt;
+                        <entry key="ro.xdr.backend.core.error.UnknownResourceException" value="404, 404, Page not found, _exmsg" />
+
+                        &lt;!&ndash; 500 (catch all): &ndash;&gt;
+                        <entry key="java.lang.Throwable" value="500, 500, Internal server error, _exmsg" />
+                    </map>
+                </property>
+            </bean>
+        </property>
+    </bean>-->
+
+    <!-- end Register -->
+    <context:component-scan base-package="ro.xdr.eanrv"/>
+    <mvc:annotation-driven/>
+
+</beans>

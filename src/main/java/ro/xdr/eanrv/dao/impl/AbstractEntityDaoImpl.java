@@ -33,7 +33,7 @@ public abstract class AbstractEntityDaoImpl<T, I> implements EntityDao<T, I> {
 		}
 	}
 
-	protected void setEntityManager(EntityManager entityManager) {
+	protected void setentityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
 
