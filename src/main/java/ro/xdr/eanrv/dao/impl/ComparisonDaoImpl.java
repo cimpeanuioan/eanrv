@@ -13,7 +13,7 @@ public class ComparisonDaoImpl extends AbstractEntityDaoImpl<Comparison, Integer
 
     @Override
     public Comparison save(Comparison entity) {
-        if (super.find(entity.getComparisonId()) != null) {
+        if (super.find(entity.getComparisonId()) == null) {
             return super.save(entity);
         } else {
             return null;

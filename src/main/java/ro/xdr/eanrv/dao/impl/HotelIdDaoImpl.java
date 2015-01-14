@@ -13,10 +13,11 @@ public class HotelIdDaoImpl extends AbstractEntityDaoImpl<HotelId, Integer> impl
 
     @Override
     public HotelId save(HotelId entity) {
-        if (super.find(entity.getEanHotelId()) != null) {
+        if (super.find(entity.getEanHotelId()) == null) {
             return super.save(entity);
         } else {
             return null;
         }
+
     }
 }

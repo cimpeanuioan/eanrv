@@ -13,7 +13,7 @@ public class DifferenceDaoImpl extends AbstractEntityDaoImpl<Difference, Integer
 
     @Override
     public Difference save(Difference entity) {
-        if (super.find(entity.getComparisonId()) != null) {
+        if (super.find(entity.getComparisonId()) == null) {
             return super.save(entity);
         } else {
             return null;

@@ -22,13 +22,12 @@ public class DifferenceController {
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.GET, name = "/difference")
-    public String getHotelById(@RequestParam(value = "differenceId") Integer differenceId,
-                               @RequestParam(value = "comparisonId") Integer comparisonId,
+    public String getHotelById(@RequestParam(value = "comparisonId") Integer comparisonId,
                                @RequestParam(value = "node") String node,
                                @RequestParam(value = "valueA") String valueA,
                                @RequestParam(value = "valueB") String valueB)       {
 
-        Difference entity = new Difference(differenceId, comparisonId, node, valueA, valueB);
+        Difference entity = new Difference(comparisonId, node, valueA, valueB);
 
         Difference savedEntity =  differenceDao.save(entity);
 
