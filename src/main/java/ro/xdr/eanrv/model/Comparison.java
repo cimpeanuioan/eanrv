@@ -8,21 +8,33 @@ import javax.persistence.*;
 @Table(name = "comparison")
 @Entity
 public class Comparison {
-    private int id;
+    private int comparisonId;
     private String httpRqA;
     private String httpRqB;
     private String responseA;
     private String responseB;
-    private Byte invalid;
+    private Boolean invalid;
 
-    @Id
-    @Column(name = "id")
-    public int getId() {
-        return id;
+    public Comparison(int comparisonId, String httpRqA, String httpRqB, String responseA, String responseB, Boolean invalid) {
+        this.comparisonId = comparisonId;
+        this.httpRqA = httpRqA;
+        this.httpRqB = httpRqB;
+        this.responseA = responseA;
+        this.responseB = responseB;
+        this.invalid = invalid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Comparison() {
+    }
+
+    @Id
+    @Column(name = "ComparisonId")
+    public int getComparisonId() {
+        return comparisonId;
+    }
+
+    public void setComparisonId(int id) {
+        this.comparisonId = id;
     }
 
     @Basic
@@ -67,11 +79,11 @@ public class Comparison {
 
     @Basic
     @Column(name = "Invalid")
-    public Byte getInvalid() {
+    public Boolean getInvalid() {
         return invalid;
     }
 
-    public void setInvalid(Byte invalid) {
+    public void setInvalid(Boolean invalid) {
         this.invalid = invalid;
     }
 
@@ -82,7 +94,7 @@ public class Comparison {
 
         Comparison that = (Comparison) o;
 
-        if (id != that.id) return false;
+        if (comparisonId != that.comparisonId) return false;
         if (httpRqA != null ? !httpRqA.equals(that.httpRqA) : that.httpRqA != null) return false;
         if (httpRqB != null ? !httpRqB.equals(that.httpRqB) : that.httpRqB != null) return false;
         if (invalid != null ? !invalid.equals(that.invalid) : that.invalid != null) return false;
@@ -94,7 +106,7 @@ public class Comparison {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = comparisonId;
         result = 31 * result + (httpRqA != null ? httpRqA.hashCode() : 0);
         result = 31 * result + (httpRqB != null ? httpRqB.hashCode() : 0);
         result = 31 * result + (responseA != null ? responseA.hashCode() : 0);

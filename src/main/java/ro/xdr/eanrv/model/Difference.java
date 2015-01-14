@@ -8,20 +8,31 @@ import javax.persistence.*;
 @Table(name = "difference")
 @Entity
 public class Difference {
-    private int id;
+    private int differenceId;
     private int comparisonId;
     private String node;
     private String valueA;
     private String valueB;
 
-    @Id
-    @Column(name = "id")
-    public int getId() {
-        return id;
+    public Difference() {
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Difference(int comparisonId, String node, String valueA, String valueB) {
+        this.comparisonId = comparisonId;
+        this.node = node;
+        this.valueA = valueA;
+        this.valueB = valueB;
+    }
+
+    @Id
+    @Column(name = "DifferenceId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public int getDifferenceId() {
+        return differenceId;
+    }
+
+    public void setDifferenceId(int differenceId) {
+        this.differenceId = differenceId;
     }
 
     @Basic
@@ -72,7 +83,7 @@ public class Difference {
         Difference that = (Difference) o;
 
         if (comparisonId != that.comparisonId) return false;
-        if (id != that.id) return false;
+        if (differenceId != that.differenceId) return false;
         if (node != null ? !node.equals(that.node) : that.node != null) return false;
         if (valueA != null ? !valueA.equals(that.valueA) : that.valueA != null) return false;
         if (valueB != null ? !valueB.equals(that.valueB) : that.valueB != null) return false;
@@ -82,7 +93,7 @@ public class Difference {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = differenceId;
         result = 31 * result + comparisonId;
         result = 31 * result + (node != null ? node.hashCode() : 0);
         result = 31 * result + (valueA != null ? valueA.hashCode() : 0);

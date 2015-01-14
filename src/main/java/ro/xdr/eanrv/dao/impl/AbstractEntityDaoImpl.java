@@ -59,6 +59,7 @@ public abstract class AbstractEntityDaoImpl<T, I> implements EntityDao<T, I> {
 
 	public List<T> getAll() {
 		List<T> resultList = entityManager.createQuery("FROM " + type.getName()).getResultList();
+
 		return resultList;
 	}
 
