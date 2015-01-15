@@ -15,6 +15,7 @@
         <mysql.connector.version>5.1.18</mysql.connector.version>
         <slf4j.version>1.6.1</slf4j.version>
         <spring.version>4.1.4.RELEASE</spring.version>
+        <spring.security>3.2.5.RELEASE</spring.security>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -81,6 +82,23 @@
             <version>${spring.version}</version>
         </dependency>
 
+        <!-- Spring security-->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security}</version>
+        </dependency>
+
         <!-- Spring MVC -->
         <dependency>
             <groupId>cglib</groupId>
@@ -99,11 +117,6 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
 
@@ -185,7 +198,7 @@
         <!-- JPA -->
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
+            <artifactId>hibernate-entityManager</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
 
@@ -199,6 +212,11 @@
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.3</version>
         </dependency>
 
     </dependencies>
