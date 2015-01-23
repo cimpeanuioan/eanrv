@@ -6,25 +6,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ro.xdr.eanrv.dao.ActivePropertyDao;
-
+import ro.xdr.eanrv.dao.StoredRequestDao;
+import ro.xdr.eanrv.model.StoredRequest;
 /**
- * Created by ioan.cimpeanu on 12.01.2015.
+ * Created by ioan.cimpeanu on 13.01.2015.
  */
-
-@Controller(value = "/api/hotel")
-public class HotelController {
+@Controller(value = "/api/stored_request")
+public class StoredRequestController {
 
     @Autowired
-    private ActivePropertyDao activePropertyDao;
+    private StoredRequestDao storedRequestDao;
 
-    public HotelController() {
+    public StoredRequestController() {
     }
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.GET, name = "/getById")
-    public String getHotelById(@RequestParam(value = "hotelId") Integer hotelId){
-        //TODO implement
+    public String getRequestById(@RequestParam(value = "requestId") Integer requestId) {
+        // TODO implement
         return null;
     }
+
+
 }

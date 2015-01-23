@@ -1,11 +1,11 @@
 package ro.xdr.eanrv.dao;
 
-import ro.xdr.eanrv.model.HotelId;
+import ro.xdr.eanrv.model.ActiveProperty;
 
 /**
  * Created by ioan.cimpeanu on 12.01.2015.
  */
-public interface HotelIdDao extends EntityDao<HotelId, Integer> {
+public interface ActivePropertyDao extends EntityDao<ActiveProperty, Integer> {
 
     /**
      * Saves a new HotelId entity into the database
@@ -14,5 +14,5 @@ public interface HotelIdDao extends EntityDao<HotelId, Integer> {
      *               if another entity with the same ID was found.
      */
     @Override
-    HotelId save(final HotelId entity);
+    ActiveProperty save(final ActiveProperty entity);
 }
